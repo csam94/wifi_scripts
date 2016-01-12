@@ -28,5 +28,7 @@ fi
 ip link set $devname down && sleep 1
 iw dev $devname set monitor none && sleep 1 #monitor none = monitor with no flags
 ip link set $devname up && sleep 1
+ip addr flush dev $devname && sleep 1
+ip addr add 10.0.0.9/24 broadcast 10.0.0.9 dev $devname && sleep 1
 
 
