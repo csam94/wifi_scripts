@@ -27,7 +27,7 @@ fi
 
 ip link set $devname down && sleep 1
 iw dev $devname set type ibss && sleep 1 #ibss = Ad-hoc
-ip addr add dev $devname 10.9.0.0/8 && sleep 1 #default ip address
+ip addr add dev $devname 10.0.0.8/24 && sleep 1 #default ip address
 ip link set $devname up && sleep 1
 iw $devname ibss join rockets 2412 #default essid "rockets"
 
