@@ -13,13 +13,13 @@ wlp4s0    Link encap:Ethernet  HWaddr 30:3A:64:53:57:69
 
 
 2) on computer A (the host) run the following:
-	sudo ./initwifi_ad-hoc.sh $devicename
+	sudo ./initwifi_ad-hoc.sh $devicename $physicalname
 
 	this will enable an ad-hoc wireless network on computer A.
 	some operation systems have different daemon names and the script may not properly kill all networking daemons. if you suspect this to be the case (for instance if your gui shows you connected to a network) you will have to manually kill these daemons through systemctl or service
 
 3) on computer B (the client) run the associate script:
-	sudo ./associate $devicename 
+	sudo ./associate $devicename $physicalname
 	(as of the time I am writing this this script is untested so it may need some tweaking)
 
 if all goes well the computers should associate to each other. you can test this by typing

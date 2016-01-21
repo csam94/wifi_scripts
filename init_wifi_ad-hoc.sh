@@ -2,7 +2,7 @@
 
 devname=$1
 
-if [ $# -eq 0 ]
+if [ $# -le 1 ]
 then
 	echo "usage: sh init_wifi_ad-hoc.sh wifi_device_name wifi_physical_address"
 	echo "eg: sudo sh init_wifi_ad-hoc.sh wlan0 phy0"
