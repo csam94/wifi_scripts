@@ -4,7 +4,8 @@ devname=$1
 
 if [ $# -eq 0 ]
 then
-	echo "usage: sh init_wifi_ad-hoc.sh wifi_device_name"
+	echo "usage: sh init_wifi_ad-hoc.sh wifi_device_name wifi_physical_address"
+	echo "eg: sudo sh init_wifi_ad-hoc.sh wlan0 phy0"
 	exit 1
 fi
 
@@ -31,4 +32,6 @@ ip addr flush dev $devname && sleep 1
 ip addr add dev $devname 10.0.0.8/24 && sleep 1 #default ip address
 ip link set $devname up && sleep 1
 iw $devname ibss join rockets 2412 #default essid "rockets"
+iw phy $2 set rts -1
+
 
