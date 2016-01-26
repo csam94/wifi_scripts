@@ -30,9 +30,9 @@ fi
 ip link set $devname down && sleep 1 #set device down
 iw dev $devname set type ibss && sleep 1 #ad hoc mode
 ip addr flush dev $devname && sleep 1 #flush previous config
-ip addr add 10.0.0.10/24 dev $devname #assign static ip
+ip addr add 10.0.0.10/24 dev $devname && sleep #assign static ip
 ip link set $devname up && sleep 1 #set device up
-iwconfig $devname essid "rockets"
+iwconfig $devname essid "rockets" && sleep 1
 iw phy $2 set rts -1
 
 
