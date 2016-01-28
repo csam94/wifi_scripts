@@ -1,11 +1,12 @@
 #!/bin/bash
 
 devname=$1
+ipaddr=$3
 
 if [ $# -le 1 ]
 then
-	echo "usage: sh init_wifi_ad-hoc.sh wifi_device_name physical_device_name"
-	echo "eg: sudo sh init_wifi_ad-hoc.sh wlan0 phy0"
+	echo "usage: sh init_wifi_ad-hoc.sh wifi_device_name physical_device_name ip_address"
+	echo "eg: sudo sh init_wifi_ad-hoc.sh wlan0 phy0 10.0.0.8"
 	exit 1
 fi
 
@@ -18,7 +19,6 @@ fi
 if [ -f /usr/bin/systemctl ] #systemd
 then
 	systemctl stop NetworkManager.service
-	systemctl stop NetworkManager.service
 fi
 
 if [ -f /usr/sbin/service ] #upstart
@@ -30,11 +30,11 @@ fi
 ip link set $devname down && sleep 1 #set device down
 iw dev $devname set type ibss && sleep 1 #ad hoc mode
 ip addr flush dev $devname && sleep 1 #flush previous config
-ip addr add 10.0.0.10/24 dev $devname && sleep #assign static ip
-iw dev $devname set channel 1 && sleep 1 # set channel
+ip addr add $ipaddr/24 dev $devname && sleep 1 #assign static ip
 ip link set $devname up && sleep 1 #set device up
-iwconfig $devname rate 1M fixed && sleep 1 # set transmit rate
-iwconfig $devname essid "rockets" && sleep 1
+iw $devname ibss leave && sleep 1
+iw $devname ibss join rockets 2412 fixed-freq basic-rates 1 && sleep 1
+iw $devname set bitrates legacy-2.4 1 && sleep 1
 iw phy $2 set rts -1
 
 
